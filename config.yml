@@ -2,7 +2,9 @@ baseURL: https://mundobsd.com/
 languageCode: es-es
 title: Mundo BSD
 theme: PaperMod
+googleAnalytics: G-74KRV4EPTD
 params:
+  env: production
   assets:
     disableHLJS: true
 
