@@ -26,3 +26,10 @@ markup:
     guessSyntax: true
     lineNos: true
     style: monokai
+
+menu:
+  main:
+    - identifier: acercade
+      name: Acerca De
+      url: /acercade
+      weight: 10
