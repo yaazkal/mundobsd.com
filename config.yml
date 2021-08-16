@@ -1,4 +1,18 @@
-baseURL: http://example.org/
-languageCode: en-us
-title: My New Hugo Site
+baseURL: https://mundobsd.com/
+languageCode: es-es
+title: Mundo BSD
 theme: PaperMod
+params:
+  ShowShareButtons: true
+  ShowReadingTime: true
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  ShowToc: true
+  
+  homeInfoParams:
+    Title: Hola, esto es Mundo BSD.
+    Content: Aquí hablamos y compartimos información acerca de sistemas operativos basados en BSD, en especial FreeBSD.
+  socialIcons:
+    - name: twitter
+      url: "https://twitter.com/mundobsd"
