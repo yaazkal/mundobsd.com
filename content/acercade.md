@@ -6,6 +6,8 @@ draft: false
 showToc: false
 ---
 
-Este sitio nace como un proyecto personal de Juan David Hurtado G (@yaazkal) con el fin de compartir información valiosa como tutoriales o artículos de opinión referentes a sistemas operativos BSD y temas relacionados.
+Este sitio nace como un proyecto *en Español* con el fin de compartir información valiosa como tutoriales o artículos de opinión referentes a sistemas operativos basados en BSD y temas relacionados.
 
 Twitter [@mundobsd](https://twitter.com/mundobsd)
+
+Administrado por Juan David Hurtado G [@yaazkal](https://twitter.com/yaazkal)
