@@ -3,6 +3,9 @@ languageCode: es-es
 title: Mundo BSD
 theme: PaperMod
 params:
+  assets:
+    disableHLJS: true
+
   ShowShareButtons: true
   ShowReadingTime: true
   ShowPostNavLinks: true
@@ -16,3 +19,10 @@ params:
   socialIcons:
     - name: twitter
       url: "https://twitter.com/mundobsd"
+
+markup:
+  highlight:
+    codeFences: true
+    guessSyntax: true
+    lineNos: true
+    style: monokai
