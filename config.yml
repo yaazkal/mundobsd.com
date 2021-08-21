@@ -3,8 +3,13 @@ languageCode: es-es
 title: Mundo BSD
 theme: PaperMod
 googleAnalytics: G-74KRV4EPTD
+enableEmoji: true
 params:
   env: production
+
+  mainsections:
+    - posts
+
   assets:
     disableHLJS: true
 
