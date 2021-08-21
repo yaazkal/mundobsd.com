@@ -38,6 +38,10 @@ markup:
 
 menu:
   main:
+    - identifier: posts
+      name: Artículos
+      url: /posts
+      weight: 1
     - identifier: acercade
       name: Acerca De
       url: /acercade
