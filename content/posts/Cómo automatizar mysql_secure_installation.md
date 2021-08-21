@@ -31,7 +31,7 @@ Para no reinventar la rueda y dado que en mi caso necesitaba dar como respuesta 
 ```sh
 yes | mysql_secure_installation >/dev/null 2>&1
 RANDOM_PASSWORD=$(openssl rand -base64 15)
-mysql -u root -pyes -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '${RANDOM_PASSWORD}';"
+mysql --user=root --password=yes --execute="ALTER USER 'root'@'localhost' IDENTIFIED BY '${RANDOM_PASSWORD}';"
 ```
 
 ¡Y listo! **¡Sí era posible!**
@@ -40,7 +40,7 @@ mysql -u root -pyes -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '${RANDOM_PA
 
 ## ¿Qué hace el script `mysql_secure_installation`?
 
-Luego de cada instalación de MariDB o de MySQL es recomendable, por seguridad, ejecutar el comando `mysql_secure_installation` ya que le pregunta al usuario si desea deshabilitar algunas características que trae por defecto el gestor de bases de datos. A saber, el *script* permite:
+Luego de cada instalación de MariaDB o de MySQL es recomendable, por seguridad, ejecutar el comando `mysql_secure_installation` ya que le pregunta al usuario si desea deshabilitar algunas características que trae por defecto el gestor de bases de datos. A saber, el *script* permite:
 
 * Establecer la contraseña del usuario *root* del gestor de base de datos.
 * Deshabilitar el acceso de la cuenta *root* del gestor de base de datos desde equipos externos
@@ -55,7 +55,7 @@ A grandes rasgos lo que estoy realizando es establecer inicialmente la contrase�
 
 `yes | mysql_secure_installation >/dev/null 2>&1`
 
-Haciendo uso del [pipeline][4] del sistema operativo, ejecuto el script contestado a todo *yes* pero sin mostrar algo; por eso el uso de `>/dev/null 2>&1`. Como se pretende usar esto en automatización no es estrictamente nesecesario mostrar todo le texto que arroja el script; si mucho un mensaje personalizado con el comando `echo` (opcional).
+Haciendo uso del [pipeline][4] del sistema operativo, ejecuto el script contestado a todo *yes* pero sin mostrar algo; por eso el uso de `>/dev/null 2>&1`. Como se pretende usar esto en automatización no es estrictamente nesecesario mostrar todo le texto que arroja el *script*; como mucho un mensaje personalizado con el comando `echo` (opcional).
 
 Esto tiene un punto débil y es que ahora la contraseña del usuario root del gestor de bases de datos es la palabra `yes`, pero eso se soluciona en los siguientes dos pasos.
 
@@ -67,11 +67,11 @@ Establezco una variable `RANDOM_PASSWORD` de 15 caracteres (mucho más segura qu
 
 #### Línea 3
 
-`mysql -u root -pyes -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '${RANDOM_PASSWORD}';"`
+`mysql --user=root --password=yes --execute="ALTER USER 'root'@'localhost' IDENTIFIED BY '${RANDOM_PASSWORD}';"`
 
-Utilizando el comando [mysql][6] cambio la contraseña del usuario root del gestor de base de datos por la nueva y más segura generada anteriormente.
+Utilizando el comando [mysql][6] cambio la contraseña del usuario *root* del gestor de base de datos por la nueva y más segura generada anteriormente.
 
-¿Notaste que me identifico con la contraseña `yes` durante la ejecución de `mysql` a través de la opción `-p`?
+¿Notaste que me identifico con la contraseña *yes* durante la ejecución de `mysql` a través de la opción `-p`?
 
 ## ¿Cómo puedo usar esto?
 
@@ -81,7 +81,7 @@ Luego puedes mostrar la contraseña generada, guardarla en un archivo o bien seg
 
 En mi caso, luego de esto creo el archivo `/root/.my.cnf` en el servidor o contenedor (jail) de destino, con dos fines: 1) poder usar `mysql` sin tener que ingresar la contraseña cada vez y 2) dejar registro de cuál fue la clave asignada al usuario *root*.
 
-De igual manera, sólo lo ejecuto una sola vez ya que lo ejecuto durante el proceso de aprovisionamiento. Como [aquí][7] en el template que estaba desarrollando para poder ejecutar [Matomo][8] en un contenedor (jail) utilizando [BastilleBSD][1].
+De igual manera, sólo lo ejecuto una sola vez ya que lo hago durante el proceso de aprovisionamiento. Como por ejemplo [aquí][7] en el *template* que estaba desarrollando para poder tener disponible [Matomo][8] en un contenedor (jail) utilizando [BastilleBSD][1].
 
 ## ¿Y si no quiero responder sí a todo?
 
@@ -89,7 +89,7 @@ De igual manera, sólo lo ejecuto una sola vez ya que lo ejecuto durante el proc
 
 Hay alternativas. Puedes usar en ese caso un operador de redirección como `<<`, haciendo uso de lo que se conoce como un *here-document*.
 
-Esto incluso te permitirá establecer una clave para el usuario *root* desde el principio o usar una en caso de que ya esté establecida.
+Esto incluso te permitirá establecer una clave para el usuario *root* desde el principio o utilizar alguna que ya esté establecida en un proceso anterior.
 
 En este **ejemplo**, el código contestará *no* a las preguntas de si desea cambiar la contraseña para *root*, eliminar la base de datos test y eliminar los usuarios anónimos:
 
@@ -108,6 +108,8 @@ EOF
 ```
 
 Pero para eso obviamente debes saber de antemano todas las preguntas del *script*, así que debes verificar cuáles son y en qué orden, de acuerdo a la versión de MariaDB o MySQL que estés usando.
+
+¿Qué otras aplicaciones se te ocurren para el comando `yes` o el operador de redirección?
 
 [1]: https://bastillebsd.com/ "[Inglés] Sitio del proyecto BastilleBSD"
 [2]: https://es.wikipedia.org/wiki/MariaDB
