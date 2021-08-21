@@ -4,6 +4,7 @@ title: Mundo BSD
 theme: PaperMod
 googleAnalytics: G-74KRV4EPTD
 enableEmoji: true
+disqusShortname: 'mundo-bsd'
 params:
   env: production
 
@@ -19,6 +20,7 @@ params:
   ShowBreadCrumbs: true
   ShowCodeCopyButtons: true
   ShowToc: true
+  comments: true
   
   homeInfoParams:
     Title: Hola, esto es Mundo BSD.
