@@ -30,7 +30,7 @@ Para no reinventar la rueda y dado que en mi caso necesitaba dar como respuesta 
 
 ```sh
 yes | mysql_secure_installation >/dev/null 2>&1
-RANDOM_PASSWORD=$(openssl rand -base64 15)
+RANDOM_PASSWORD=$(openssl rand -hex 15)
 mysql --user=root --password=yes --execute="ALTER USER 'root'@'localhost' IDENTIFIED BY '${RANDOM_PASSWORD}';"
 ```
 
@@ -61,7 +61,7 @@ Esto tiene un punto débil y es que ahora la contraseña del usuario root del ge
 
 #### Línea 2
 
-`RANDOM_PASSWORD=$(openssl rand -base64 15)`
+`RANDOM_PASSWORD=$(openssl rand -hex 15)`
 
 Establezco una variable `RANDOM_PASSWORD` de 15 caracteres (mucho más segura que la palabra yes) que será generada aleatoriamente gracias al comando [openssl][5]
 
