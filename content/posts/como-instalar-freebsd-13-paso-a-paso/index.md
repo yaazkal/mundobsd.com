@@ -7,7 +7,7 @@ showToc: true
 TocOpen: false
 draft: false
 hidemeta: false
-description: "Guía completa y explicativa paso a paso de cómo instalar el sistema operativo FreeBSD."
+description: "Tutorial completo en donde se explica paso a paso cómo instalar el sistema operativo FreeBSD."
 disableHLJS: true # to disable highlightjs
 disableShare: false
 hideSummary: false
@@ -16,7 +16,7 @@ ShowBreadCrumbs: true
 ShowPostNavLinks: true
 ---
 
-El video que aquí se referencia sirve como punto de partida. Sin embargo es esta guía escrita la que está revisada y contiene información en más detalle y de manera más clara.
+Guía que contiene información en detalle y de manera clara de cómo realizar la instalación paso a paso del sistema operativo FreeBSD. El video que aquí se referencia sirve como punto de partida, pero se aclara que ésta guía debe ser la que se tenga en cuenta para aclarar cualquier duda.
 
 {{< youtube BlQileaOuIE >}}
 
@@ -40,11 +40,11 @@ Alternativamente, se puede descargar la versión deseada a través de *torrents*
 
 ![Inicio](img/01_boot_instalacion.png)
 
-Cuando iniciamos el equipo seleccionando como medio de arranque nuestro CD ó USB donde hemos «quemado» la imagen que descargamos previamente, nos vamos a encontrar con una información similar a la mostrada en la imagen anterior.
+Cuando iniciamos el equipo o máquina virtual seleccionando como medio de arranque el archivo que descargamos previamente (CD ó USB si lo estás haciendo físicamente), nos vamos a encontrar con una información similar a la mostrada en la imagen anterior.
 
-En este punto hemos podido ver que el inicializador (*booter*) se ha ejecutado correctamente. Este inicializador nos va a servir también en casos en los que debamos recuperar el sistema, por lo que no es mala idea conservar uno a la mano.
+En este punto hemos podido ver que el cargador de arranque (*boot loader*) se ha ejecutado correctamente. Este «inicializador» nos va a servir también en casos en los que debamos recuperar el sistema, por lo que no es mala idea conservar uno.
 
-Oprimimos la tecla *Enter*, o bien cuando pasan 10 segundos, por defecto se inicia el instalador propiamente.
+Oprimimos la tecla *Enter*, o bien cuando pasan 10 segundos, por defecto se inicia el instalador del sistema (*bsdinstall*).
 
 ## Bienvenida del instalador
 
@@ -56,7 +56,7 @@ Aquí será suficiente con oprimir la tecla *Enter* mientras está marcada la op
 
 ![Selección de distribución de teclado](img/03_distribucion_teclado.png)
 
-Aquí tenemos a nuestra disposición el poder seleccionar la distribución de teclado para que sea mucho más fácil ingresar caracteres como puntos, tildes, la letra eñe, entre otros; por lo que puedes buscar en la lista la distribución para el teclado que estés usando. 
+Tenemos a nuestra disposición el poder seleccionar la distribución de teclado para que sea mucho más fácil ingresar caracteres como puntos, tildes, la letra eñe, entre otros; por lo que puedes buscar en la lista la distribución para el teclado que estés usando. 
 
 Voy a suponer que estás usando un teclado en Español, pero distribuciones alternativas como [Dvorak][2] están también disponibles.
 
@@ -76,7 +76,7 @@ O bien continuar con el proceso usando la distribución de teclado seleccionada:
 
 ![Asignar nombre de host](img/04_asignar_hostname.png)
 
-Aquí escribimos el nombre del equipo con el cual lo vamos a identificar. En nuestro ejemplo *mundoBSD*.
+Escribimos el nombre del equipo con el cual lo vamos a identificar. En nuestro ejemplo *mundoBSD*.
 
 Nota: Si estás haciendo la instalción de equipo en una red con dominio, en un centro de datos o en la nube, aquí es bueno poner el *FQN (Fully qualified name)* de este servidor. Ejemplo: *www.mundobsd.com*
 
@@ -86,17 +86,19 @@ Nota: Si estás haciendo la instalción de equipo en una red con dominio, en un 
 
 A menos de que quieras hacer desarrollo del sistema operativo propiamente dicho, las opciones que terminan en *-dbg* no se hacen necesarias, así como la opción de *tests*. Lo que nos deja tres opciones:
 
-**lib32**: Selecciona esta opción si necesitas dar compatibilidad a software antiguo que use librerías compitadas en arquitectura de 32 bits.
+**lib32**: Selecciona esta opción si necesitas dar compatibilidad a software antiguo que use librerías compiladas para arquitectura de 32 bits (sólo disponible para instalaciones en 64bits).
 
-**ports**: Selecciona esta opción si quieres contar con un «universo» de archivos *Make* en el equipo que se alojarán en el directorio `/usr/ports/` por defecto. Allí encontrarás otra serie de directorios por categorías de aplicaciones de terceros.
+**ports**: Selecciona esta opción si quieres contar con una colección de archivos *Make* en el equipo que se alojarán en el directorio `/usr/ports/` por defecto. Allí encontrarás otra serie de directorios por categorías de aplicaciones de terceros. Esto te ayudará a automatizar la descarga, compilación e instalación de software de terceros.
 
 Por ejemplo, si quisieras compilar e instalar el gestor de bases de datos Postgresql versión 13, bastará con dirigirte a `/usr/ports/databases/postgresql13-server/` y ejecutar `make install clean`.
 
 Algunos prefieren este método para compilar e instalar aplicaciones de terceros en el sistema ya que les brinda más control; pero no es la única manera, ya que el sistema cuenta con la utilidad [pkg][3] para instalar/desinstalar binarios. En términos generales, es recomendable usar una u otra estrategia para instalar aplicaciones, no ambas.
 
-**src**: Si seleccionas esta opción vas a tener una copia del código fuente del sistema operativo en el directorio `/usr/src/`. Será útil en caso de que quieras compilar el sistema operativo y/o si decides optimizar/personalizar el *kernel*. Hay quienes prefieren actualizar el sistema operativo de esta manera.
+**src**: Si seleccionas esta opción vas a tener una copia del código fuente del sistema operativo, tanto del *kernel* como de las aplicaciones de usuario (*userland*) en el directorio `/usr/src/`. Será útil en caso de que quieras compilar el sistema operativo con tus propias optimizaciones o personalizaciones.
 
 En caso de que decidieras escoger *ports* y *src*, se cuentan con herramientas para sincronizar y mantener al día éstos directorios, bien sea usando [portsnap][4] para el caso de *ports* o `git` para ambos casos.
+
+Nota: El instalador no verifica espacio disponible en disco, así que si seleccionaste `ports` ten presente que este directorio puede estar ocupando alrededor de 500 MB. Si seleccionaste `src`, este directorio puede estar ocupando alrededor de 1GB y en el momento de la compilación del sistema operativo vas a necesitar unas 5GB adicionales.
 
 ## Particionar disco(s)
 
@@ -108,7 +110,7 @@ Tenemos a nuestra disposición dos sistemas de archivos: [ZFS][5] ó [UFS][5] *(
 
 Si quieres un sistema de archivos a prueba de todo y además con características extra, sin lugar a dudas *ZFS* es el sistema de archivos a utilizar. No te va a dejar a mitad de camino.
 
-Nota: Es recomendable usar *ZFS* en equipos con no menos de 1GB de RAM. Usar 8GB como mínimo es sin embargo lo sugerido.
+Nota: Es recomendable usar *ZFS* en equipos con al menos 1GB de RAM; usar 8GB como mínimo es sin embargo lo sugerido.
 
 Para efectos de esta guía (y como recomendación), uso la opción *Auto (ZFS)*
 
@@ -142,7 +144,7 @@ Por último, nos va a salir un mensaje de confirmación para proceder a formatea
 
 ![Aceptar configuración ZFS](img/07_configuracion_zfs_confirmar_destruccion.png)
 
-Confirmamos la opición anterior, y podremos ver el progreso más o menos de esta manera:
+Confirmamos la opición anterior y veremos el progreso más o menos de esta manera:
 
 ![Progreso](img/07_configuracion_progreso_instalacion.png)
 
@@ -186,7 +188,7 @@ Aquí vamos a ingresar la configuración relativa los servidores [DNS][8] que de
 
 Si la configuración *DHCP* previamente se ejecutó con éxito, seguramente ya tengas estos campos llenos.
 
-En este ejemplo, yo estoy sobreescribiendo esos valores para utilizar los servidores *DNS* de *Cloudflare*, pero puedes usar los que consideres pertinentes. Si no tienes seguridad, puedes dejar los que te hayan aparecido en principio.
+En este ejemplo, yo estoy sobreescribiendo esos valores para utilizar los servidores *DNS* de *Cloudflare*, pero puedes usar los que consideres pertinentes. Si tienes dudas, puedes dejar los que te hayan aparecido en principio.
 
 Nota: El campo *search* lo estoy dejando vacío a propósito ya que no aplica para este ejemplo.
 
@@ -194,7 +196,7 @@ Nota: El campo *search* lo estoy dejando vacío a propósito ya que no aplica pa
 
 ![Configuración de zona horaria](img/10_zona_horaria.png)
 
-En este pantallazo, debes seleccionar el continente y luego el país donde este equipo estará ubicado para que se configure la zona horaria correspondiente. Ya que debería ser bastante obvio este paso no me voy a detener en detalle aquí. Al seleccionar el país, debería verse algo como esto:
+En este pantallazo, debes seleccionar el continente y luego el país donde este equipo estará ubicado (o al menos sus usuarios si es un equipo remoto) para que se configure la zona horaria correspondiente. Ya que debería ser bastante obvio este paso, no me voy a detener en detalle aquí. Al seleccionar el país, debería verse algo como esto:
 
 ![Zona horaria, selección de país](img/10_zona_horaria_seleccion.png)
 
@@ -214,11 +216,11 @@ Si la hora es correcta, continuamos dejando marcada la opción *skip*, de lo con
 
 En este punto vamos a poder seleccionar cuáles servicios queremos habilitar (*daemons* en términos del sistema). Esta lista no incluye todos, pero sí algunos importantes. Yo voy a mencionar los tres que he seleccionado:
 
-**local_unbound**: Usualmente lo instalo ya que ayuda mucho a la percepición de velocidad en las conexiones. Este servicio lo que hace es conservar un caché de las consultas DNS de manera local.
+**local_unbound**: Usualmente lo instalo ya que ayuda mucho a la percepción de velocidad en las conexiones. Este servicio lo que hace es habilitar un servidor DNS de manera local, por lo que las consultas se harán primero a la máquina y luego a los servidores externos si no están los registros.
 
-**sshd**: Si hay un servicio omnipresente puede ser este, en especial en servidores. Este servicio nos permite conectarnos de manera segura a nuestro equipo de manera remota.
+**sshd**: Si hay un servicio omnipresente puede ser este, en especial en servidores. Este servicio nos permite conectarnos de manera segura y remota a nuestro equipo.
 
-**ntpd**: Sincroniza frecuentemente la hora y fecha del equipo con servidores [NTP][9]. Es importante que nuestro equipo o servidor siempre cuente con la configuración de fecha y hora de manera correcta ya que a veces se pueden presentar errores de validación en certificados ssl precisamente por no contar con la hora sincronizada correctamente.
+**ntpd**: Sincroniza frecuentemente la hora y fecha del equipo con servidores [NTP][9]. Es importante que nuestro equipo o servidor siempre cuente con la configuración de fecha y hora de manera correcta ya que a veces se pueden presentar errores de validación en certificados *ssl* precisamente por no contar con la hora sincronizada correctamente.
 
 **powerd**: Esta opción siempre la habilito sobre todo cuando estoy haciendo la instalación en un equipo portátil. Es muy útil ya que regula la frecuencia de la CPU, por lo que ayuda a consumir menos energía cuando el equipo está funcionando únicamente con la batería.
 
@@ -226,21 +228,25 @@ En este punto vamos a poder seleccionar cuáles servicios queremos habilitar (*d
 
 ![Configuración de seguridad o hardening](img/12_configuracion_seguridad.png)
 
-Este es un buen pantallazo para los paranóicos. Analiza muy bien cuáles de las opciones que aquí aparecen pueden ser útiles para tu caso de uso. Si estás instalando un equipo o servidor que va a ser utilizado por diferentes usuarios, puede ser interesante tener las tres primeras opciones habilitadas, no sólo por seguridad sino también por privacidad.
+Este es un buen pantallazo para los paranóicos. Analiza muy bien cuáles de las opciones que aquí aparecen pueden ser útiles para tu caso de uso. Si estás instalando un equipo o servidor que va a ser utilizado por diferentes usuarios, puede ser interesante tener las tres primeras opciones habilitadas no sólo por seguridad, sino también por privacidad.
 
 A parte de mencionar esas tres primeras, meciono la opción de *clear_tmp*, que lo que hace es vaciar el directorio `/tmp` cada vez que se inicia el sistema. Algunos podrán debatir si esto es realmenete una opción de seguridad o no; yo simplemente la siento conveniente para cualquier caso.
+
+Nota: Si no tienes claro cuáles habilitar y es tu primera experiencia con el sistema, entonces no selecciones ninguna, así el aprendizaje será más fácil. Igualmenete éstas opciones se puede habilitar/deshabilitar posterior a la instalación.
 
 ## Agregar usuarios
 
 ![Agregar usuarios al sistema](img/13_usuarios.png)
 
-Aquí el instalador nos va a permitir agregar usuarios al sistema. Para efectos de este ejemplo, vamos a agregar el usuario `juan`. Lo único que debemos hacer es ir contestando las preguntas que el asistente nos va preguntando. Las opciones que aparecen entre corchetes `[ ]`, son las que el asistente va a poner por defecto en caso de que no indiquemos o escribamos algo.
+Aquí el instalador nos va a permitir agregar usuarios al sistema. Para efectos de este ejemplo y como recomendación general, vamos a agregar al menos un usuario estándar. En este caso el usuario `juan`. Lo único que debemos hacer es ir contestando las preguntas que el asistente nos va a ir mostrando.
 
-La final se puede ver algo como:
+Las opciones que aparecen entre corchetes `[ ]`, son las que el asistente va a poner por defecto en caso de que no indiquemos o escribamos algo.
+
+Al final se puede ver algo como esto:
 
 ![Crear usuario juan](img/13_usuarios_nuevo.png)
 
-Una vez se crea el primer usuario, el asistente nos va a preguntar si deseamos agregar más usuarios y repetiremos la acción de ser necesario. Para este ejemplo únicamente vamos a crear el usuario `juan`.
+Una vez se crea el primer usuario, el asistente nos va a preguntar si deseamos agregar más usuarios y repetiremos la acción de ser necesario. Para este ejemplo únicamente vamos un solo usuario.
 
 ![Agregar otro usuario](img/13_usuarios_agregar_otro_usuario.png)
 
@@ -254,11 +260,11 @@ El instalador nos va a presentar un pantallazo final en donde podremos hacer cam
 
 ![Reinciar sistema](img/15_reiniciar.png)
 
-Asegúrate de retirar el medio de instalación, para que cuando reinicies, pueda el sistema iniciar desde el disco duro puedas iniciar sesión en el nuevo sistema instalado:
+Asegúrate de retirar el medio de instalación, para que cuando reinicies, el sistema pueda iniciar desde el disco duro con el nuevo sistema instalado:
 
 ![Iniciar sesión](img/16_iniciar_sesion.png)
 
-Y eso es todo, en próximas entregas podemos ver algunas primeras tareas a ejecutar en el sistema o incluso cómo instalar un entorno gráfico para usar el sistema como nuestro equipo de trabajo.
+Y eso es todo, en próximas entregas podremos ver algunas primeras tareas a ejecutar en el sistema o incluso cómo instalar un entorno gráfico para usar el sistema como nuestro equipo de trabajo.
 
 ¿Qué quieres hacer ahora? ¿qué nuevo proyecto quieres emprender?
 
