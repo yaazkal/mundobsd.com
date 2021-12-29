@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="false" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="RunManager">
+    <configuration name="Hugo draft" type="HUGO_RUN_CONFIGURATION" factoryName="Hugo configuration factory">
+      <option name="hugo.plugin.arguments" value="-D" />
+      <option name="hugo.plugin.run.server" value="run" />
+      <option name="hugo.plugin.custom.project.dir" value="" />
+      <method v="2" />
+    </configuration>
+  </component>
+</project>
