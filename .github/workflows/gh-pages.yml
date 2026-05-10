@@ -1,5 +1,4 @@
-# Based on https://gohugo.io/hosting-and-deployment/hosting-on-github/#build-hugo-with-github-action
-name: github pages
+name: GitHub Pages
 
 on:
   push:
@@ -10,6 +9,8 @@ on:
 jobs:
   deploy:
     runs-on: macos-latest
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -20,7 +21,7 @@ jobs:
         uses: peaceiris/actions-hugo@v3
         with:
           hugo-version: 'latest'
-          # extended: true
+          extended: true
 
       - name: Build
         run: hugo --minify
