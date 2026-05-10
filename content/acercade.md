@@ -8,8 +8,8 @@ showToc: false
 
 Este sitio nace como un proyecto *en Español* con el fin de compartir información valiosa como tutoriales o artículos de opinión referentes a sistemas operativos basados en BSD y temas relacionados.
 
-IRC: [#mundobsd @ Libera.Chat](ircs://irc.libera.chat/#freebsd-irc)
-
+YouTube: https://www.youtube.com/@MundoBSD
 Twitter [@mundobsd](https://twitter.com/mundobsd)
+IRC: [#mundobsd @ Libera.Chat](ircs://irc.libera.chat/#freebsd-irc)
 
 Administrado por Juan David Hurtado G [@yaazkal](https://twitter.com/yaazkal)
