@@ -28,6 +28,8 @@ params:
   socialIcons:
     - name: twitter
       url: "https://twitter.com/mundobsd"
+    - name: youtube
+      url: "https://www.youtube.com/@MundoBSD"
 
 markup:
   highlight:
