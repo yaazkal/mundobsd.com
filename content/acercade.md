@@ -12,6 +12,6 @@ YouTube: https://www.youtube.com/@MundoBSD
 
 Twitter [@mundobsd](https://twitter.com/mundobsd)
 
-IRC: [#mundobsd @ Libera.Chat](ircs://irc.libera.chat/#freebsd-irc)
+IRC: [#mundobsd @ Libera.Chat](ircs://irc.libera.chat/#mundobsd)
 
 Administrado por Juan David Hurtado G [@yaazkal](https://twitter.com/yaazkal)
